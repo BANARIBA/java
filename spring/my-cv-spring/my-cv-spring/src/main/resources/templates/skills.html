@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <html>
+        <head>
+            <title>Curriculum Vitae</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" th:href="@{/css/style.css}" />
+        </head>
+        <body>
+            <div>Mis Skills:</div>
+            <p th:if="${skills.isEmpty()}">No hay skills</p>
+            <ul th:if="${!skills.isEmpty()}">
+                <li th:each="skill, stat: ${skills}">
+                    <span th:text="${skill.name} + ' - ' + ${skill.level}"></span>
+                    <a th:href="@{'/cv/skills/id/'+${stat.index}}">Ver detalle...</a>
+                </li>
+            </ul>
+            
+            <p th:if="${message}" th:text="${message}"></p>
+            
+            <h2>Busca Skills Por Nombre</h2>
+            <form method="GET" action="/cv/skills">
+            <label th:for="searchBy">Nombre de skill:</label>
+            <input type="text" th:value="${searchBy}" name="searchBy" />
+            <button type="submit">Buscar</button>
+        </form>
+        </body>
+    </html>
